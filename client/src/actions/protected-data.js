@@ -1,6 +1,8 @@
 import {API_BASE_URL} from '../config';
 import {normalizeResponseErrors} from './utils';
 
+var giphy = require('giphy-api')('rNq8FtmogPXR2ZuiSwncKoSAcTbDVQii');
+
 export const FETCH_PROTECTED_DATA_SUCCESS = 'FETCH_PROTECTED_DATA_SUCCESS';
 export const fetchProtectedDataSuccess = data => ({
     type: FETCH_PROTECTED_DATA_SUCCESS,
@@ -37,6 +39,39 @@ export const testAction = () => (dispatch, getState) => {
         headers: {
             // Provide our auth token as credentials
             Authorization: `Bearer ${authToken}`
+        }
+    })
+        .then(res => normalizeResponseErrors(res))
+        .then(res => res.json())
+        .then((data) => dispatch({
+               type: 'TEST',
+               payload:data
+            }))
+        .catch(err => {
+            dispatch(fetchProtectedDataError(err));
+        })
+};
+
+export const searchGiphs = (entry) => (dispatch, getState) =>
+{
+  giphy.search('pokemon').then(function (res) {
+// Res contains gif data!
+dispatch({type:'GIPH', payload:res})
+console.log(res);
+});
+}
+
+export const postTodo = (entry) => (dispatch, getState) => {
+    const authToken = getState().auth.authToken;
+    console.log(entry);
+    return fetch(`${API_BASE_URL}/todos`, {
+        method: 'POST',
+        body: JSON.stringify(entry),
+        headers: {
+            // Provide our auth token as credentials
+            Authorization: `Bearer ${authToken}`,
+            'Accept': 'application/json, text/plain, */*',
+            'Content-Type': 'application/json'
         }
     })
         .then(res => normalizeResponseErrors(res))

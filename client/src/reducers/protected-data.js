@@ -6,7 +6,9 @@ import {
 
 const initialState = {
     data: '',
-    error: null
+    error: null,
+    giphs:[],
+    test: 'watever'
 };
 
 // export default function reducer(state = initialState, action) {
@@ -41,8 +43,16 @@ export default (state = initialState, action) => {
     case 'TEST':
     console.log(action)
       return {
-        ...state
+        ...state,
+        test:'yo'
       };
+
+      case 'GIPH':
+      console.log(action)
+        return {
+          ...state,
+          giphs: [...action.payload.data]
+        };
 
     default:
       return state;

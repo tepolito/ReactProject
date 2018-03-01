@@ -1,11 +1,13 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {Link, Redirect} from 'react-router-dom';
-import {fetchProtectedData, testAction} from '../actions/protected-data';
+import {fetchProtectedData, testAction, postTodo, searchGiphs} from '../actions/protected-data';
 import { bindActionCreators } from 'redux'
+
 
 export class Dashboard extends React.Component {
     componentDidMount() {
+      console.log(this.props);
         if (!this.props.loggedIn) {
             return;
         }
@@ -19,7 +21,7 @@ export class Dashboard extends React.Component {
         }
 
         return (
-            <div className="dashboard" onClick={this.props.testAction}>
+            <div className="dashboard" >
                 <br />
                 <div className="dashboard-username">
                     Email: {this.props.email}
@@ -29,13 +31,17 @@ export class Dashboard extends React.Component {
                 </div>
                 <br />
                 <Link to="/add">Add Entry</Link>
+                <button onClick={this.props.testAction}>testAction</button>
+                <button onClick={() => this.props.postTodo({'title':'heyo'})}>postTodo</button>
+                <button onClick={this.props.searchGiphs}>Search Giphs</button>{this.props.test}
+              //  {this.props.giphs.map((g)=>{ <iframe src="https://giphy.com/embed/1Lxha1YCyRoXu" width="480" height="460" frameBorder="0" class="giphy-embed" allowFullScreen></iframe> })}
             </div>
         );
     }
 }
 
 const mapDispatchToProps = dispatch => bindActionCreators({
-        testAction,
+        testAction, postTodo, searchGiphs
 }, dispatch)
 
 const mapStateToProps = state => {
@@ -44,7 +50,9 @@ const mapStateToProps = state => {
     return {
         loggedIn: currentUser !== null,
         email: currentUser ? state.auth.currentUser.email : '',
-        protectedData: state.protectedData.data
+        protectedData: state.protectedData.data,
+        giphs: state.protectedData.giphs,
+        test: state.protectedData.test
     };
 };
 
