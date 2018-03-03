@@ -1,8 +1,9 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {Link, Redirect} from 'react-router-dom';
-import {fetchProtectedData, testAction, postTodo, searchGiphs} from '../actions/protected-data';
-import { bindActionCreators } from 'redux'
+import {fetchProtectedData, searchGiphs} from '../actions/protected-data';
+import {getTodos, postTodo} from '../actions/todos';
+import { bindActionCreators } from 'redux';
 
 
 export class Dashboard extends React.Component {
@@ -31,7 +32,7 @@ export class Dashboard extends React.Component {
                 </div>
                 <br />
                 <Link to="/add">Add Entry</Link>
-                <button onClick={this.props.testAction}>testAction</button>
+                <button onClick={this.props.getTodos}>testAction</button>
                 <button onClick={() => this.props.postTodo({'title':'heyo'})}>postTodo</button>
                 <button onClick={this.props.searchGiphs}>Search Giphs</button>{this.props.test}
               //  {this.props.giphs.map((g)=>{ <iframe src="https://giphy.com/embed/1Lxha1YCyRoXu" width="480" height="460" frameBorder="0" class="giphy-embed" allowFullScreen></iframe> })}
@@ -41,7 +42,7 @@ export class Dashboard extends React.Component {
 }
 
 const mapDispatchToProps = dispatch => bindActionCreators({
-        testAction, postTodo, searchGiphs
+        getTodos, postTodo, searchGiphs
 }, dispatch)
 
 const mapStateToProps = state => {

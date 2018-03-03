@@ -32,7 +32,7 @@ export const fetchProtectedData = () => (dispatch, getState) => {
         });
 };
 
-export const testAction = () => (dispatch, getState) => {
+export const getTodos = () => (dispatch, getState) => {
     const authToken = getState().auth.authToken;
     return fetch(`${API_BASE_URL}/todos`, {
         method: 'GET',
