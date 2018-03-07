@@ -6,7 +6,8 @@ var giphy = require('giphy-api')('rNq8FtmogPXR2ZuiSwncKoSAcTbDVQii');
 export const FETCH_PROTECTED_DATA_SUCCESS = 'FETCH_PROTECTED_DATA_SUCCESS';
 export const fetchProtectedDataSuccess = data => ({
     type: FETCH_PROTECTED_DATA_SUCCESS,
-    data
+    data,
+    name: 'tyler'
 });
 
 export const FETCH_PROTECTED_DATA_ERROR = 'FETCH_PROTECTED_DATA_ERROR';
@@ -45,7 +46,8 @@ export const testAction = () => (dispatch, getState) => {
         .then(res => res.json())
         .then((data) => dispatch({
                type: 'TEST',
-               payload:data
+               payload: data,
+               animal: 'cat'
             }))
         .catch(err => {
             dispatch(fetchProtectedDataError(err));
@@ -56,8 +58,9 @@ export const searchGiphs = (entry) => (dispatch, getState) =>
 {
   giphy.search('pokemon').then(function (res) {
 // Res contains gif data!
-dispatch({type:'GIPH', payload:res})
 console.log(res);
+dispatch({type:'GIPH', payload:res})
+
 });
 }
 

@@ -33,8 +33,9 @@ export class Dashboard extends React.Component {
                 <Link to="/add">Add Entry</Link>
                 <button onClick={this.props.testAction}>testAction</button>
                 <button onClick={() => this.props.postTodo({'title':'heyo'})}>postTodo</button>
-                <button onClick={this.props.searchGiphs}>Search Giphs</button>{this.props.test}
+                <button onClick={this.props.searchGiphs}>Search Giphs</button>{this.props.test}{this.props.animal}{this.props.name}
               //  {this.props.giphs.map((g)=>{ <iframe src="https://giphy.com/embed/1Lxha1YCyRoXu" width="480" height="460" frameBorder="0" class="giphy-embed" allowFullScreen></iframe> })}
+              {this.props.giphs.map((g)=>{return <h1>{g}</h1>})}
             </div>
         );
     }
@@ -46,13 +47,15 @@ const mapDispatchToProps = dispatch => bindActionCreators({
 
 const mapStateToProps = state => {
     const {currentUser} = state.auth;
-    console.log(currentUser);
+    console.log(state);
     return {
         loggedIn: currentUser !== null,
         email: currentUser ? state.auth.currentUser.email : '',
         protectedData: state.protectedData.data,
+        name: state.protectedData.name,
         giphs: state.protectedData.giphs,
-        test: state.protectedData.test
+        test: state.protectedData.test,
+        animal: state.protectedData.animal
     };
 };
 

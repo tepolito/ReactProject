@@ -7,8 +7,9 @@ import {
 const initialState = {
     data: '',
     error: null,
-    giphs:[],
-    test: 'watever'
+    giphs:[6,2,4],
+    test: 'watever',
+    animal: "dog"
 };
 
 // export default function reducer(state = initialState, action) {
@@ -26,11 +27,13 @@ const initialState = {
 // }
 
 export default (state = initialState, action) => {
+  console.log(action.type);
   switch (action.type) {
     case FETCH_PROTECTED_DATA_SUCCESS:
       return {
         ...state,
         data:action.data,
+        name: action.name,
         error:null
       };
 
@@ -44,14 +47,15 @@ export default (state = initialState, action) => {
     console.log(action)
       return {
         ...state,
-        test:'yo'
+        test:'yo',
+        animal: 'giraffe'
       };
 
       case 'GIPH':
       console.log(action)
         return {
           ...state,
-          giphs: [...action.payload.data]
+          giphs: [3,4,5]
         };
 
     default:
